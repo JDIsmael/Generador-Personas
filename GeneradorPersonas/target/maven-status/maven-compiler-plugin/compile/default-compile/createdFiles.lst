@@ -1,9 +1,8 @@
-ec\edu\espe\distribuidas\generadorpersonas\Registers.class
-ec\edu\espe\distribuidas\generadorpersonas\Cedula.class
-ec\edu\espe\distribuidas\generadorpersonas\ClienteApi.class
-ec\edu\espe\distribuidas\generadorpersonas\PopulationGenerator.class
-ec\edu\espe\distribuidas\generadorpersonas\IdGenerator.class
-ec\edu\espe\distribuidas\generadorpersonas\Person.class
-ec\edu\espe\distribuidas\generadorpersonas\ListadoPersonas.class
-.netbeans_automatic_build
-ec\edu\espe\distribuidas\generadorpersonas\FileManager.class
+ec/edu/espe/distribuidas/generadorpersonas/IdGenerator.class
+ec/edu/espe/distribuidas/generadorpersonas/ClienteApi.class
+ec/edu/espe/distribuidas/generadorpersonas/Registers.class
+ec/edu/espe/distribuidas/generadorpersonas/FileManager.class
+ec/edu/espe/distribuidas/generadorpersonas/Person.class
+ec/edu/espe/distribuidas/generadorpersonas/ListadoPersonas.class
+ec/edu/espe/distribuidas/generadorpersonas/Cedula.class
+ec/edu/espe/distribuidas/generadorpersonas/PopulationGenerator.class

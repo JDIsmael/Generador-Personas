@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.distribuidas.banquito.generador.personas.model;
 
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -13,11 +14,16 @@ import lombok.Data;
  */
 @Data
 public class Persona {
-    private String cedula;
+    private String identificacion;
     private String nombres;
     private String apellidos;
     private String genero;
     private String provincia;
     private String canton;
     private String parroquia;
+    private String codigoDactilar;
+    private String nombrePadre;
+    private String nombreMadre;
+    private String estadoCivil;
+    private String fechaNacimiento;
 }

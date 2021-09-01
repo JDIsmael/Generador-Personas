@@ -43,18 +43,19 @@ public class LeerCondiciones implements Tasklet, StepExecutionListener {
 
     @Override
     public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
-          log.info("Va a ejecutar la tarea leer condiciones");
-          log.info("El archivo con condiciones es: ()", this.applicationValues.getConfigFile());
+        log.info("Va a ejecutar la tarea leer condiciones");
+        log.info("El archivo con condiciones es: {}", this.applicationValues.getConfigFile());
         Properties props = new Properties();
+        
         try {
             Path path = Path.of(this.applicationValues.getConfigFile());
             props.load(new FileInputStream(this.applicationValues.getConfigFile()));
-
             Integer personas;
+            
             try {
                 personas = Integer.parseInt(props.getProperty("personas"));
                 log.info("Va a generar {} personas", personas);
-                ExecutionContext jobContext = sc.getStepExecution().getExecutionContext();
+                ExecutionContext jobContext = cc.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
                 jobContext.put("records", personas);
             } catch (NumberFormatException e) {
                 log.error("Invalid value for personas");
