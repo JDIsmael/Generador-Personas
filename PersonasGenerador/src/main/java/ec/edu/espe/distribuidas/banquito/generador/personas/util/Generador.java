@@ -48,11 +48,22 @@ public class Generador extends Thread {
         Random r = new Random();
         PersonaRQ personasRQ = new PersonaRQ();
         personasRQ.setPersonas(new ArrayList<>());
-
+        boolean check;
+        String cedula;
         for (int i = 1; i <= this.personas; i++) {
             Persona persona = new Persona();
+            check = true;
 
-            persona.setIdentificacion(generarCedula());
+            do {
+                cedula = this.generarCedula();
+                String respVerificacion = this.restTemplate.getForObject("http://20.85.192.181:8001/api/registrocivil/verificacion/" + cedula, String.class);
+                
+                if (respVerificacion.equals("N"))
+                    check = false;
+                
+            } while (check);
+
+            persona.setIdentificacion(cedula);
             persona.setGenero(i % 2 == 0 ? "M" : "F");
             if ("M".equals(persona.getGenero())) {
                 persona.setNombres(this.generarNombres(this.nombresM));
@@ -86,18 +97,18 @@ public class Generador extends Thread {
                     persona.getApellidos().split(" ")));
 
             personasRQ.getPersonas().add(persona);
-            if (i % 50000 == 0) {
+            if (i % 100 == 0) {
                 this.restTemplate.postForObject("http://20.85.192.181:8001/api/registrocivil/generador/", personasRQ, String.class);
-                log.info("Insertados : {}",personasRQ.getPersonas().size());
+                log.info("Insertados : {}", personasRQ.getPersonas().size());
                 personasRQ.getPersonas().clear();
                 System.gc();
             }
 
         }
 
-        if (this.personas % 50000 != 0) {
+        if (this.personas % 100 != 0) {
             this.restTemplate.postForObject("http://20.85.192.181:8001/api/registrocivil/generador/", personasRQ, String.class);
-            log.info("Insertados Ultimos : {}",personasRQ.getPersonas().size());
+            log.info("Insertados Ultimos : {}", personasRQ.getPersonas().size());
         } else {
             personasRQ.getPersonas().clear();
             System.gc();
@@ -135,7 +146,7 @@ public class Generador extends Thread {
         suma = suma % 10 == 0 ? 0 : 10 - suma % 10;
         return body + suma.toString();
     }
-    
+
     private String generarFechaNacimiento() {
         int month = 12;
         int day = 28;
